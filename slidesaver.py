@@ -1,14 +1,12 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import lxml.etree
 import pyquery
 import re
 import reportlab.lib.utils
 import reportlab.pdfgen.canvas
 import requests
 import sys
-import urlparse
 
 def main():
 	resp = requests.get(sys.argv[1])
