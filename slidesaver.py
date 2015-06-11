@@ -28,14 +28,16 @@ def main():
 				print link
 			c.save()
 		if resp.text.find('"type":"video"') != -1:
-			match = re.search(r'"ppt_location":"(.+?)"', resp.text)
+			match = re.search(r'"ppt_location":"(?P<filename>.+?)".+?"video_bucket":"(?P<domain>.+?)".+?"video_extension":"(?P<extension>.+?)"', resp.text)
 			if match is not None:
 				name = match.group(1)
-				link = 'http://vcdn.slidesharecdn.com/%s-SD.mp4' % (name)
+				# this combination rule comes from http://public.slidesharecdn.com/b/slideview/scripts/combined_video_init.js
+				# line 232: var d=this.config.videoBucket+"/"+this.config.pptLocation+"-SD."+this.config.videoExtension
+				link = 'http:%s/%s-SD.%s' % (match.group('domain'), match.group('filename'), match.group('extension'))
 				resp = requests.get(link)
 				with open('output.mp4', 'wb') as f:
 					for chunk in resp.iter_content():
-						f.write(chunk)
+						f.write(chunk), 
 					f.close()
 				print link
 
