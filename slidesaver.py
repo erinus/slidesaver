@@ -21,9 +21,9 @@ def main():
 			for image in images:
 				link = image.attrib['data-full']
 				page = reportlab.lib.utils.ImageReader(link)
-				size = page.getSize()
-				c.setPageSize(size)
-				c.drawImage(page, 0, 0, size[0], size[1])
+				pagew, pageh = page.getSize()
+				c.setPageSize((pagew, pageh))
+				c.drawImage(page, 0, 0, pagew, pageh)
 				c.showPage()
 				print link
 			c.save()
