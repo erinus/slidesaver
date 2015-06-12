@@ -1,2 +1,2 @@
 # slidesaver
-Get presentation or video from slideshare and speakerdeck
+Get (download-disabled) presentation or video from slideshare and speakerdeck
