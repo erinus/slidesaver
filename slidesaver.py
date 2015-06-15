@@ -1,12 +1,16 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+# pip install pyquery
+# pip install requests
+# pip install reportlab
+
 import json
 import pyquery
 import re
+import requests
 import reportlab.lib.utils
 import reportlab.pdfgen.canvas
-import requests
 import sys
 
 def main():
