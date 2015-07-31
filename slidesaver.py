@@ -67,7 +67,6 @@ def main():
                     match = re.search(r'"slides":(?P<list>\[.+?\])', resp.text)
                     images = json.loads(match.group('list'))
                     title = str(title[1])
-                    print(title)
                     c = reportlab.pdfgen.canvas.Canvas(title + '.pdf')
                     for image in images:
                         link = image['original']
