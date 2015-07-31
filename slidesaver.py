@@ -56,8 +56,7 @@ def main():
         if 'speakerdeck.com' in link:
             query = pyquery.PyQuery(resp.text)
             title = re.findall('<h1>(.*)</h1>', resp.text)
-            title = re.sub(r'[^a-zA-Z0-9%!-_*.]', ' ', title[1])
-            print(title)
+            title = re.sub(r'[^a-zA-Z0-9]', ' ', title[1])
             embeds = query('div.speakerdeck-embed')
             for embed in embeds:
                 code = embed.attrib['data-id']
@@ -66,7 +65,6 @@ def main():
                 if resp.status_code == 200:
                     match = re.search(r'"slides":(?P<list>\[.+?\])', resp.text)
                     images = json.loads(match.group('list'))
-                    title = str(title[1])
                     c = reportlab.pdfgen.canvas.Canvas(title + '.pdf')
                     for image in images:
                         link = image['original']
