@@ -56,7 +56,8 @@ def main():
         if 'speakerdeck.com' in link:
             query = pyquery.PyQuery(resp.text)
             title = re.findall('<h1>(.*)</h1>', resp.text)
-            title = re.sub(r'[^a-zA-Z0-9%!-_*.]', ' ', title)
+            title = re.sub(r'[^a-zA-Z0-9%!-_*.]', ' ', title[1])
+            print(title)
             embeds = query('div.speakerdeck-embed')
             for embed in embeds:
                 code = embed.attrib['data-id']
