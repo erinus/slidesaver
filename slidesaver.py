@@ -18,8 +18,8 @@ def main():
     if resp.status_code == 200:
         if 'slideshare.net' in link:
             query = pyquery.PyQuery(resp.text)
-            title = re.findall('<h1.*?>(.*)</h1>', resp.text)
-            title = re.sub(r'[^a-zA-Z0-9%!-_*.]', ' ', title[0])
+            title = query('h1:first').text()
+            title = re.sub(r'[^a-zA-Z0-9%!-_*.]', ' ', title)
             if resp.text.find('"type":"presentation"') != -1:
                 images = query('img.slide_image')
                 c = reportlab.pdfgen.canvas.Canvas(title + '.pdf')
@@ -55,8 +55,8 @@ def main():
                     print(link)
         if 'speakerdeck.com' in link:
             query = pyquery.PyQuery(resp.text)
-            title = re.findall('<h1>(.*)</h1>', resp.text)
-            title = re.sub(r'[^a-zA-Z0-9]', ' ', title[1])
+            title = query('h1')[1].text
+            title = re.sub(r'[^a-zA-Z0-9]', ' ', title)
             embeds = query('div.speakerdeck-embed')
             for embed in embeds:
                 code = embed.attrib['data-id']
